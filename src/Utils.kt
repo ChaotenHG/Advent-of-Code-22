@@ -14,3 +14,11 @@ fun readInput(name: String) = File("src/inputs", "$name.txt")
 fun String.md5() = BigInteger(1, MessageDigest.getInstance("MD5").digest(toByteArray()))
     .toString(16)
     .padStart(32, '0')
+
+// https://github.com/edgars-supe/advent-of-code/blob/master/src/main/kotlin/lv/esupe/aoc/utils/ListUtil.kt
+fun <T> List<T>.chunkedBy(selector: (T) -> Boolean): List<List<T>> =
+    fold(mutableListOf(mutableListOf<T>())) { acc, item ->
+        if (selector(item)) acc.add(mutableListOf())
+        else acc.last().add(item)
+        acc
+    }
